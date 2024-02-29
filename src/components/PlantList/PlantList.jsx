@@ -5,7 +5,7 @@ import { useDispatch, useSelector} from 'react-redux';
 function PlantList() {
     const dispatch = useDispatch();
 
-    const reduxState = useSelector(store => store);
+    const plantList = useSelector(store => store.plantList);
 
     useEffect(() => {
         // dispatch an action to request the plantList from the API
@@ -15,7 +15,7 @@ function PlantList() {
     return (
         <div>
             <h3>This is the plant list</h3>
-            <pre>{JSON.stringify(reduxState)}</pre>
+            {plantList.map(plant => <li key={plant.id}>Name: {plant.name}</li>)}
         </div>
     );
 }
