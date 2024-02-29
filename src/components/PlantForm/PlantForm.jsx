@@ -4,26 +4,41 @@ import { useDispatch } from 'react-redux';
 const PlantForm = () => {
     const dispatch = useDispatch();
     
-    //Initial state is an OBJECT, with keys id and name
-    let [newPlant, setPlant] = useState({id: 4, name: ''});
-
-    const handleNameChange = (event) => {
-        //Similar to in redux -- we dont want to get rid of the id field when we update name
-        setPlant({...newPlant, name: event.target.value})
-    }
+    //Initial state is an OBJECT, with keys name, kingdom, clade, order, family, subfamily, genus
+    let [newPlant, setPlant] = useState({
+        name: '',
+        kingdom: '',
+        clade: '',
+        order: '',
+        family: '',
+        subfamily: '',
+        genus: ''
+    });
 
     const addNewPlant = event => {
         event.preventDefault();
-        dispatch({ type: 'ADD_PLANT', payload: newPlant });
-        //updates the next plant to have a new id
-        setPlant({id:newPlant.id + 1, name: ''});
+        dispatch({type: 'POST_PLANT', payload: newPlant});
+        setPlant({
+            name: '',
+            kingdom: '',
+            clade: '',
+            order: '',
+            family: '',
+            subfamily: '',
+            genus: ''
+        });
     }
     return (
         <div>
             <h3>This is the form</h3>
-            <pre>{JSON.stringify(newPlant)}</pre>
             <form onSubmit={addNewPlant}>
-                <input type='text' value={newPlant.name} onChange={handleNameChange} />
+                <input type='text' value={newPlant.name} onChange={(event)=>setPlant({...newPlant, name: event.target.value})} placeholder='Name'/>
+                <input type='text' value={newPlant.kingdom} onChange={(event)=>setPlant({...newPlant, kingdom: event.target.value})} placeholder='Kingdom'/>
+                <input type='text' value={newPlant.clade} onChange={(event)=>setPlant({...newPlant, clade: event.target.value})} placeholder='Clade'/>
+                <input type='text' value={newPlant.order} onChange={(event)=>setPlant({...newPlant, order: event.target.value})} placeholder='Order'/>
+                <input type='text' value={newPlant.family} onChange={(event)=>setPlant({...newPlant, family: event.target.value})} placeholder='Family'/>
+                <input type='text' value={newPlant.subfamily} onChange={(event)=>setPlant({...newPlant, subfamily: event.target.value})} placeholder='Subfamily'/>
+                <input type='text' value={newPlant.genus} onChange={(event)=>setPlant({...newPlant, genus: event.target.value})} placeholder='Genus'/>
                 <input type='submit' value='Add New Plant' />
             </form>
         </div>
