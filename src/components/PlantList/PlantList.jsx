@@ -12,10 +12,14 @@ function PlantList() {
         dispatch({type: 'FETCH_PLANTS'});
     }, []); 
 
+    const deletePlant = id => {
+        dispatch({type: 'DELETE_PLANT', payload: id});
+    }
+
     return (
         <div>
             <h3>This is the plant list</h3>
-            {plantList.map(plant => <li key={plant.id}>Name: {plant.name}</li>)}
+            {plantList.map(plant => <li key={plant.id}>Name: {plant.name} <button onClick={()=>deletePlant(plant.id)}>Delete</button></li>)}
         </div>
     );
 }

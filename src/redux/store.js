@@ -20,13 +20,24 @@ function* postPlant(action) {
     yield put({type: 'FETCH_PLANTS'});
   }
   catch (error) {
-    console.log('Error posting plang', error);
+    console.log('Error posting plant', error);
+  }
+}
+
+function* deletePlant(action) {
+  try {
+    yield axios.delete(`/api/plants/${action.payload}`);
+    yield put({type: 'FETCH_PLANTS'});
+  }
+  catch (error) {
+    console.log('Error deleting plant', error);
   }
 }
 
 function* rootSaga() {
   yield takeLatest('FETCH_PLANTS', fetchPlants);
   yield takeLatest('POST_PLANT', postPlant);
+  yield takeLatest('DELETE_PLANT', deletePlant);
 }
 
 
